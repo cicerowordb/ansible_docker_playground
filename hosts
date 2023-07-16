@@ -1,0 +1,5 @@
+# Hosts configuration
+[ansible_servers]
+ansible-srv1 ansible_host=172.18.1.1
+ansible-srv2 ansible_host=172.18.1.2
+

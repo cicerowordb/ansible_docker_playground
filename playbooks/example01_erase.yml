@@ -1,0 +1,9 @@
+# Install a test application to check configuration
+- name: EXAMPLE01_ERASE
+  hosts: ansible-srv1
+  become: true
+  vars_files:
+    - vars/example01.yml
+  tasks:
+    - name: Kill All Flask Processes
+      shell: killall flask
