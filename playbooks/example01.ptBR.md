@@ -19,13 +19,13 @@ ansible-playbook playbooks/example01.yml
 Para testar a execução use o seguinte comando:
 
 ```bash
-curl http://172.18.1.1:5000/cipher?text=example+of+text+to+ciper
+curl http://172.18.1.1:5000/cipher?text=example+of+text+to+cipher
 ```
 
 Para validar a resposta do primeiro teste, você pode executar:
 
 ```bash
-curl http://172.18.1.1:5000/cipher?text=oximtno+ef+poxp+pe+catos
+curl http://172.18.1.1:5000/cipher?text=oximtno+ef+poxp+pe+cathos
 ```
 
 Para parar o aplicativo no servidor de destino, execute o seguinte comando:

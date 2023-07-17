@@ -19,13 +19,13 @@ ansible-playbook playbooks/example01.yml
 To test the execution use the following command:
 
 ```bash
-curl http://172.18.1.1:5000/cipher?text=example+of+text+to+ciper
+curl http://172.18.1.1:5000/cipher?text=example+of+text+to+cipher
 ```
 
 To validate the answer of the first test you can run:
 
 ```bash
-curl http://172.18.1.1:5000/cipher?text=oximtno+ef+poxp+pe+catos
+curl http://172.18.1.1:5000/cipher?text=oximtno+ef+poxp+pe+cathos
 ```
 
 To stop the application from in the destination server run the following command:
