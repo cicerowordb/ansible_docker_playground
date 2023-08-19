@@ -158,6 +158,7 @@ ansible -m shell -a "which python3" ansible_servers
 
 Check some examples in **playbooks** folder:
 - **example01.yaml**: uses one server to run a simple Python/Flask application that executes the tenispolar cipher. Check more information in the **[example01.md](playbooks/example01.md)** file.
+- **example02.yaml**: uses two servers to run a simple Python/Flask application inside ansible-srv1 and a Redis server inside ansible-srv2. Check more information in the **[example02.md](playbooks/example02.md)** file.
 
 ##  Known issues:
 - This environment runs containers in privileged mode as root, which is acceptable only for testing and learning purposes. Include USER instruction in your Dockerfile to avoid this.

@@ -152,10 +152,11 @@ ansible -m shell -a "uptime" ansible_servers
 ansible -m shell -a "which python3" ansible_servers
 ```
 
-## Examplos
+## Exemplos
 
 Confira alguns exemplos na pasta **playbooks**:
 - **example01.yaml**: usa um servidor para executar um aplicativo Python/Flask simples que executa a cifra tenispolar. Verifique mais informações no arquivo **[example01.md](playbooks/example01.ptBR.md)**.
+- **example02.yaml**: usa dois servidores para executar um aplicativo Python/Flask em ansible-srv1 e um servidor Redis em ansible-srv2. Verifique mais informações no arquivo **[example02.md](playbooks/example02.md)**.
 
 ##  Known issues:
 - Este ambiente executa contêineres em modo privilegiado como root, o que é aceitável apenas para fins de teste e aprendizado. Inclua a instrução USER em seu Dockerfile para evitar isso.
