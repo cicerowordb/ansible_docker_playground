@@ -1,4 +1,4 @@
-FROM    debian:11.7
+FROM    debian:12.1
 ENV     container docker
 STOPSIGNAL SIGRTMIN+3
 VOLUME  [ "/tmp", "/run", "/run/lock" ]
