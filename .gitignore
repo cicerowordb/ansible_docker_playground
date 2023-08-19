@@ -4,3 +4,5 @@ __pycache__/
 *.py[cod]
 *$py.class
 *venv*
+ansible_root_rsa_key*
+ansible_user_rsa_key*
