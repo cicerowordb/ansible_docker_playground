@@ -28,10 +28,10 @@ To validate the answer of the first test you can run:
 curl http://172.18.1.1:5000/cipher?text=oximtno+ef+poxp+pe+cathos
 ```
 
-To stop the application from in the destination server run the following command:
+To stop the application in the destination server run the following command:
 
 ```bash
-ansible-playbook playbooks/example01.yml
+ansible-playbook playbooks/example01_erase.yml
 ```
 
 ## The tenispolar Application

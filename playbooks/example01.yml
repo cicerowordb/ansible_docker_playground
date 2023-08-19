@@ -16,7 +16,7 @@
         name: [ "python3", "python3-pip", "python3-dev" ]
     - name: Install Python Libraries for Example 01
       pip:
-        name: [ "flask==2.2.2"]
+        name: [ "flask==2.2.2" ]
     - name: Copy Python Files
       copy:
         src:  code/example01/main.py
