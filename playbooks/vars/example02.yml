@@ -1,0 +1,4 @@
+---
+ex02_redis_host: 172.18.1.2
+ex02_redis_pass: OQBMK/5fkc3pHAJ+qkexIN1D
+ex02_flask_port: 5001

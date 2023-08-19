@@ -1,0 +1,68 @@
+# Install a test application that uses a database
+- name: EXAMPLE02-Install REDIS
+  hosts: ansible-srv2
+  become: true
+  vars_files:
+    - vars/example02.yml
+  tasks:
+    - name: Updates APT Cache
+      apt:
+        update_cache: yes
+    - name: Install Redis Requirements
+      apt:
+        name: [ "curl", "gpg"]
+        state: present
+    - name: Configure REDIS Repository
+      shell: |
+        ls /etc/apt/sources.list.d/redis.list && rm -f /etc/apt/sources.list.d/redis.li
+        ls /usr/share/keyrings/redis-archive-keyring.gpg && rm -f /usr/share/keyrings/redis-archive-keyring.gpg
+        curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+    - name: Updates APT Cache
+      apt:
+        update_cache: yes
+    - name: Install REDIS
+      apt:
+        name: redis
+        state: present
+    - name: Configure REDIS IP
+      replace:
+        path: /etc/redis/redis.conf
+        regexp: '^bind [0-9a-fA-F.: *-]*$'
+        replace: 'bind 127.0.0.1 -::1 {{ ex02_redis_host }}'
+    - name: Configure REDIS Password
+      replace:
+        path: /etc/redis/redis.conf
+        regexp: '^# requirepass .*$'
+        replace: 'requirepass {{ ex02_redis_pass }}'
+    - name: Restart REDIS
+      service:
+        name: redis-server
+        state: restarted
+        enabled: yes
+- name: EXAMPLE02-Deploy Application
+  hosts: ansible-srv1
+  become: true
+  vars_files:
+    - vars/example02.yml
+  tasks:
+    - name: Copy Python Files
+      copy:
+        src:  code/example02/main.py
+        dest: /opt/app_ex02/
+    - name: Updates APT Cache
+      apt:
+        update_cache: yes
+    - name: Install Python
+      apt:
+        name: [ "python3", "python3-pip", "python3-dev" ]
+    - name: Install Python Libraries for Example 02
+      pip:
+        name: [ "redis==4.6", "flask==2.3" ]
+        extra_args: "-t /opt/app_ex02/"
+    - name: Execute Python Application
+      shell: |
+        export REDIS_HOST={{ ex02_redis_host }} && \
+        export REDIS_PASS={{ ex02_redis_pass }} && \
+        cd /opt/app_ex02/ && \
+        nohup python3 -m flask --no-debug --app main run --host "0.0.0.0" --port "{{ ex02_flask_port }}" &
