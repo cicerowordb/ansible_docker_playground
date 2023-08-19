@@ -17,6 +17,9 @@ from flask import request
 
 app = Flask(__name__)
 
+FIRST_WORD = 'tenisTENIS'
+SECOND_WORD = 'polarPOLAR'
+
 @app.route('/')
 def hello():
     """ default route with basic usage """
@@ -27,11 +30,11 @@ def cipher(text=None):
     """ function to cipher text """
     if 'text' in request.args:
         text = request.args.get('text')
-        for letter in 'tenisTENIS':
+        for letter in FIRST_WORD:
             text = text.replace(letter, f'=__{letter}__=')
-        for index, letter in enumerate('polarPOLAR'):
-            text = text.replace('polarPOLAR'[index], 'tenisTENIS'[index])
-        for index, letter in enumerate('tenisTENIS'):
-            text = text.replace(f'=__{letter}__=', 'polarPOLAR'[index])
+        for index, letter in enumerate(SECOND_WORD):
+            text = text.replace(SECOND_WORD[index], FIRST_WORD[index])
+        for index, letter in enumerate(FIRST_WORD):
+            text = text.replace(f'=__{letter}__=', SECOND_WORD[index])
         return text, 200
     return 'no text received', 400
