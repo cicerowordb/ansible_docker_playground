@@ -1,4 +1,6 @@
 """ Module to update information in Redis server
+    The information is a list of books using last_book_key to control the
+    key of entity BOOK. The register is a mapping/dict with all book info.
     python3 -m pip install redis==4.6 flask==2.3 -t .
     python3 -m flask --no-debug --app main run --host 0.0.0.0 --port 5001 &
 """
@@ -23,15 +25,22 @@ redis_client = redis.Redis(
 app = Flask(__name__)
 
 def insert_new_book(name=None, author=None, borrowed_to=None, borrowed_on=None):
-    """ Insert a new book in Redis server """
+    """ 
+        Insert a new book in Redis server 
+        Args:
+            name (str): book's name
+            author (str): book's author
+            borrowed_to: friend's name who borrowed the book
+            borrowed_on: date/time when the book was borrowed
+    """
     book = {
         "name": name,
         "author": author,
         "borrowed_to": borrowed_to,
         "borrowed_on": borrowed_on
     }
-    last_key = redis_client.incr('last_key', amount=1)
-    redis_client.hset('BOOK'+str(last_key), mapping=book)
+    last_book_key = redis_client.incr('last_book_key', amount=1)
+    redis_client.hset('BOOK'+str(last_book_key), mapping=book)
 
 
 @app.route('/')
@@ -51,7 +60,7 @@ def hello():
 @app.route('/list')
 def list_books():
     """ List all books in Redis server with a 200 response or
-        list a message of not found in ith 204 response.
+        list a message of not found with a 204 response.
     """
     scan_response = redis_client.scan(match='BOOK*')
     print('========================================')
@@ -98,8 +107,8 @@ def add():
     return response_content, response_status
 
 @app.route('/del')
-def delete(code=None):
-    """  """
+def delete():
+    """ Delete a book """
     response_status = 0
     response_content = ''
     if 'code' in request.args:
