@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="max-width: 1000px;">
+    <h1 class="display-5">{{ title }}</h1><br>
+    <form method="post" action="/add">
+        <table border="0" style="border-spacing: 10px;">
+            <tr>
+                <td width="20%" valign="top">
+                    <div class="form-group">
+                        <p class="text-muted m-b-15 f-s-12">Greek Name</p>
+                        <input name="greek_name" id="greek_name" type="text" value="" class="form-control input-default" required="required" style="text-align:center;">
+                    </div>
+                </td>
+                <td width="1%"></td>
+                <td width="79%" valign="top" rowspan="2">
+                    <div class="form-group">
+                        <p class="text-muted m-b-15 f-s-12">Description</p>
+                        <textarea name="description" id="description" class="form-control input-default" required="required" rows="7" cols="100"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" valign="middle">
+                    <div class="form-group">
+                        <p class="text-muted m-b-15 f-s-12">Roman Name</p>
+                        <input name="roman_name" id="roman_name" type="text" value="" class="form-control input-default" required="required" style="text-align:center;">
+                    </div>
+                </td>
+                <td width="1%"></td>
+            </tr>
+            <tr>
+                <td width="20%" height="80" valign="middle">
+                    <div class="form-group">
+                        <p class="text-muted m-b-15 f-s-12">Gender</p>
+                        <input name="gender" id="gender" type="text" value="" class="form-control input-default" style="text-align:center;">
+                    </div>
+                </td>
+                <td width="1%"></td>
+                <td width="20%" height="80" valign="middle">
+                    <div class="form-group">
+                        <p class="text-muted m-b-15 f-s-12">Image URL</p>
+                        <input name="image_url" id="image_url" type="text" value="" class="form-control input-default" style="text-align:center;">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

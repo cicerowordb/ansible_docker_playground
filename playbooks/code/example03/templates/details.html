@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="max-width: 1000px;">
+    <h1 class="display-5">{{ title }}</h1><br>
+    <table border="0">
+        <tr>
+            <td width="25%" valign="middle" height="80">
+               ID<p class="lead">{{ registry['pk'] }}</p>
+            </td>
+            <td width="75%" valign="top" rowspan="7">
+                <p class="lead">{{ registry['description'] }}</p><br>
+                <p class="lead">
+                    <img src="{{ registry['image_url'] }}" width="700">
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" height="80">
+                Greek Name<p class="lead">{{ registry['greek_name'] }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" height="80">
+                Roman Name<p class="lead">{{ registry['roman_name'] }}</p>
+            </td valign="middle">
+        </tr>
+        <tr>
+            <td valign="middle" height="80">
+                Gender<p class="lead">{{ registry['gender'] }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" height="80">
+                Created at<p class="lead">{{ registry['created_at'] }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" height="80">
+                Updated at<p class="lead">{{ registry['updated_at'] }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" height="80">
+                <div class="button-list">
+                    <div class="btn-group">
+                        <a href="/editform?id={{ registry['id'] }}" class="btn btn-primary">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a> &nbsp;
+                        <a href="/delete?id={{ registry['id'] }}" onclick="return confirm('Delete current registry?')" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

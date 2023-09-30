@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="max-width: 1000px;">
+    <h1 class="display-5">{{ title }}</h1><br>
+    <table border="0" width="100%">
+        <tr>
+            <td align="center">
+                <p class="lead">All operations: {{ total_operations }}</p><br>
+            </td><td align="center">
+                <p class="lead">Create operations: {{ create_operations }}</p><br>
+            </td><td align="center">
+                <p class="lead">Details operations: {{ details_operations }}</p><br>
+            </td>
+        </tr><tr>
+            <td align="center">
+                <p class="lead">Edit operations: {{ edit_operations }}</p><br>
+            </td><td align="center">
+                <p class="lead">Delete operations: {{ delete_operations }}</p><br>
+            </td><td align="center">
+                <p class="lead">List operations: {{ list_operations }}</p><br>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <table border="0">
+    {% for registry in registries %}
+        <tr>
+            <td width="35%" height="80" valign="middle">
+               PK<p class="lead">[{{ registry['pk'] }}]</p>
+            </td>
+            <td width="35%" height="80" valign="middle">
+                Ancient God PK<p class="lead">[{{ registry['ancientgod_pk'] }}]</p>
+            </td>
+            <td width="15%" height="80" valign="middle">
+                Operation<p class="lead">{{ registry['action'] }}</p>
+            </td>
+            <td width="15%" height="80" valign="middle">
+                Operation at<p class="lead">{{ registry['accessed_at'] }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

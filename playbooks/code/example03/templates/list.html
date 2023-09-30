@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="max-width: 1000px;">
+    <h1 class="display-5">{{ title }}</h1><br>
+    {% for registry in registries %}
+    <table border="0">
+        <tr>
+            <td width="20%" height="80" valign="middle">
+                PK<p class="lead">{{ registry['pk'] }}</p>
+            </td>
+            <td width="20%" height="80" valign="middle">
+                Greek Name<p class="lead">{{ registry['greek_name'] }}</p>
+            </td>
+            <td width="20%" height="80" valign="middle">
+                Roman Name<p class="lead">{{ registry['roman_name'] }}</p>
+            </td>
+            <td width="20%" height="80" valign="middle">
+                Gender<p class="lead">{{ registry['gender'] }}</p>
+            </td>
+            <td width="20%" height="80" valign="middle">
+                <div class="button-list">
+                    <div class="btn-group">
+                        <a href="/details?pk={{ registry['pk'] }}" class="btn btn-primary">Details</a> &nbsp;
+                        <a href="/editform?pk={{ registry['pk'] }}" class="btn btn-primary">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a> &nbsp;
+                        <a href="/delete?pk={{ registry['pk'] }}" onclick="return confirm('Delete current registry?')" class="btn btn-danger">Delete</a> &nbsp;
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

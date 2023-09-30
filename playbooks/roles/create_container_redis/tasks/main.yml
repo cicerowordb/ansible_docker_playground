@@ -1,0 +1,27 @@
+- name: Create Redis Data Directory
+  file:
+    path: /opt/redis_data
+    state: directory
+    mode: u=rwx,g=rx,o-rwx
+
+- name: Pull Redis Image From Docker Hub
+  docker_image:
+    name: redis/redis-stack:7.2.0-v2
+    source: pull
+
+- name: Start/Restart a Redis Container
+  docker_container:
+    name: redis-stack
+    image: redis/redis-stack:7.2.0-v2
+    state: started
+    recreate: yes
+    restart: yes
+    ports:
+      - "{{ redis_service_port }}:6379"     # Redis Service
+      - "{{ redis_insight_port }}:8001"     # RedisInsight
+    env:
+      REDIS_ARGS: "--requirepass {{ redis_default_password }}"
+    volumes:
+      - "{{ redis_server_volume_path }}:/data"
+    container_default_behavior: compatibility
+

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="max-width: 1000px;">
+    <h1 class="display-5">Ancient Gods</h1><br>
+    This application is an example used to exercise Ansible usage. The
+    <a href="https://github.com/cicerowordb/ansible_docker_playground" target="new">
+    Github repository</a> is maintened by Cicero Woshington. This is the third example.<br><br>
+    To use this application use the links at the upper/right side. Home is this page. Add allow
+    add a new registry in the database. List option will list all registries and allow check
+    details, edit, or delete a registry. If you check de details, a description and a image are
+    shown. The ID is controlled by the database.<br><br>
+    Info based in this
+    <a href="https://github.com/kamiranoff/greek-mythology-data/blob/master/data/all.json" target="new">file</a>
+    from Kamiranoff Github user. Thanks. When import please check if greek name and roman name are
+    fullfilled. 
+</div>
+{% endblock %}

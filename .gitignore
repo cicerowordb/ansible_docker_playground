@@ -6,3 +6,4 @@ __pycache__/
 *venv*
 ansible_root_rsa_key*
 ansible_user_rsa_key*
+.vscode*

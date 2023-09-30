@@ -1,0 +1,4 @@
+redis==4.6.0
+redis-om==0.2.1
+pydantic==2.0.3
+Flask==2.2.3

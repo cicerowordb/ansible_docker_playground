@@ -1,0 +1,39 @@
+- name: Install Aptitude
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+- name: Install Required System Packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: latest
+    update_cache: true
+- name: Add Docker GPG APT Key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+- name: Check Debian/Ubuntu Codename
+  shell: grep VERSION_CODENAME /etc/os-release|cut -d'=' -f2
+  register: distro_codename
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian {{ distro_codename.stdout }} stable
+    state: present
+- name: Update APT and Install docker-ce
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: true
+- name: Start Docker Service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+- name: Install PIP Library to Ansible Docker Modules
+  apt:
+    name: python3-docker
+    update_cache: true
