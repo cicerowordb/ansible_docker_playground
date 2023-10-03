@@ -72,8 +72,6 @@
         restart: yes
         ports:
           - "{{ app_tcp_port }}:{{ app_tcp_port }}"
-        env:
-          REDIS_ARGS: "--requirepass {{ redis_default_password }}"
         volumes:
           - "{{ app_volume_path }}:{{ app_volume_path }}"
         container_default_behavior: compatibility
