@@ -160,6 +160,63 @@ Check some examples in **playbooks** folder:
 - **example01.yaml**: uses one server to run a simple Python/Flask application that executes the tenispolar cipher. Check more information in the **[example01.md](playbooks/example01.md)** file.
 - **example02.yaml**: uses two servers to run a simple Python/Flask application inside ansible-srv1 and a Redis server inside ansible-srv2. Check more information in the **[example02.md](playbooks/example02.md)** file.
 
+## Run inside Kubernetes
+
+This code was tested in a GKE cluster with a successful installation of PostgreSQL. To run this code inside a Kubernetes cluster build the image and create a Pod like the following example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ansible-srv
+  labels:
+    app: ansible-srv
+spec:
+  containers:
+  - name: ansible-srv
+    image: systemd-container:latest
+    securityContext:
+      privileged: true
+      capabilities:
+        add:
+        - SYS_ADMIN
+  dnsPolicy: ClusterFirst
+```
+
+If you need to create a NetworkPolicy check this example:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-systemd-container-egress
+spec:
+  egress: 
+  - {}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: systemd-container
+  policyTypes:
+  - Egress
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app.kubernetes.io/name: systemd-container
+  name: systemd-container
+spec:
+  containers:
+  - name: systemd-container
+    image: systemdcontainer:latest
+    securityContext:
+      privileged: true
+      capabilities:
+        add:
+        - SYS_ADMIN
+  dnsPolicy: ClusterFirst
+```
+
 ##  Known issues:
 - This environment runs containers in privileged mode as root, which is acceptable only for testing and learning purposes. Include USER instruction in your Dockerfile to avoid this.
 - Please note that it does not work in WSL (Windows Subsystem for Linux) due to the requirement of cgroupv2. If you wish to use it in WSL, you should first install [WSL SystemD support](https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/).
